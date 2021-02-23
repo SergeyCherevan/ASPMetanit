@@ -12,34 +12,17 @@ namespace ASPMetanit
 {
     public class Startup
     {
-        IWebHostEnvironment _env;
-        public Startup(IWebHostEnvironment env)
-        {
-            _env = env;
-        }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            int x = 2;
+            app.Run(async (context) =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync($"Application Name: {_env.ApplicationName}");
-                });
+                x = x * 2;  //  2 * 2 = 4
+                await context.Response.WriteAsync($"Result: {x}");
             });
         }
     }
