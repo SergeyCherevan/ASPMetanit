@@ -18,19 +18,27 @@ namespace ASPMetanit
 
         public void Configure(IApplicationBuilder app)
         {
-            int x = 2;
-            app.Use(async (context, next) =>
-            {
-                x = x * 2;      // 2 * 2 = 4
-                await next.Invoke();    // גûחמג app.Run
-                x = x * 2;      // 8 * 2 = 16
-                await context.Response.WriteAsync($"Result: {x}");
-            });
+            app.Map("/index", Index);
+            app.Map("/about", About);
 
             app.Run(async (context) =>
             {
-                x = x * 2;  //  4 * 2 = 8
-                await Task.FromResult(0);
+                await context.Response.WriteAsync("Page Not Found");
+            });
+        }
+
+        private static void Index(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Index");
+            });
+        }
+        private static void About(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("About");
             });
         }
     }
