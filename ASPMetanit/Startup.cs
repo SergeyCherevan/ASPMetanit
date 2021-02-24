@@ -18,12 +18,8 @@ namespace ASPMetanit
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseMiddleware<TokenMiddleware>();
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World");
-            });
+            app.UseMiddleware<AuthenticationMiddleware>();
+            app.UseMiddleware<RoutingMiddleware>();
         }
     }
 }
