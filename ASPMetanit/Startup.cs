@@ -18,6 +18,7 @@ namespace ASPMetanit
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseMiddleware<AuthenticationMiddleware>();
             app.UseMiddleware<RoutingMiddleware>();
         }
