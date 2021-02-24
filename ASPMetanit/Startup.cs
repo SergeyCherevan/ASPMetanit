@@ -18,23 +18,11 @@ namespace ASPMetanit
 
         public void Configure(IApplicationBuilder app)
         {
-            app.MapWhen(context => {
-
-                return context.Request.Query.ContainsKey("id") &&
-                        context.Request.Query["id"] == "5";
-            }, HandleId);
+            app.UseMiddleware<TokenMiddleware>();
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Good bye, World...");
-            });
-        }
-
-        private static void HandleId(IApplicationBuilder app)
-        {
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync("id is equal to 5");
+                await context.Response.WriteAsync("Hello World");
             });
         }
     }
